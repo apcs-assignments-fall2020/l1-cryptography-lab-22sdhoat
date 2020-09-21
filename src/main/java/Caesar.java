@@ -2,47 +2,81 @@ import java.util.Scanner;
 
 public class Caesar {
     public static String encryptCaesar(String message) {
-        String encrypted="";
-        for(int i = 0;i < message.length(); i++) {
-            int c = message.charAt(i);
-            if(Character.isUpperCase(c)) {
-                c += (3%26);
+        String s = "";
+        for(int i = 0; i < message.length(); i++) {
+            char ch = message.charAt(i);
+            if ((ch >= 65 && ch<= 90)||(ch >= 97 && ch <=122))  { 
+                if ((ch >= 88 && ch <= 90)||(ch >= 120 && ch <= 122)) {
+                    s += (char)(ch - 23);
+                }
+                else {
+                    s += (char)(ch + 3);
+                }
             }
-            if(c>'Z'){
-                c -= 26;
+            else {
+                s += ch;
             }
-            else if(Character.isLowerCase(c)){
-                c += (3%26);
-            }
-            if(c>'z'){
-                c -= 26;
-            }
-            encrypted += (char)c;
         }
-        return encrypted;
+        return s;
     }
 
     public static String decryptCaesar(String message) {
         String s = "";
-        for(int i = 0; x < message.length(); i++) {
+        for(int i = 0; i < message.length(); i++) {
             char ch = message.charAt(i);
-            if (ch >= 65 && ch<= 90 || ch >= 97 && ch <=127) {
-                s += (char)(message.charAt(i) - (26-3));
+            if ((ch >= 65 && ch<= 90)||(ch >= 97 && ch <=122))  { 
+                if ((ch >= 65 && ch <= 67)||(ch >= 97 && ch <= 99)) {
+                    s += (char)(ch + 23);
+                }
+                else {
+                    s += (char)(ch - 3);
+                }
             }
             else {
-                s += message.charAt(i);
+                s += ch;
             }
         }
         return s;
     }
 
     public static String encryptCaesarKey(String message, int key) {
-        return message;
+        String s = "";
+        key = key % 26;
+        for(int i = 0; i < message.length(); i++) {
+            char ch = message.charAt(i);
+            if ((ch >= 65 && ch<= 90)||(ch >= 97 && ch <=122))  { 
+                if ((ch >= (90 - (key-1)) && ch <= 90)||(ch >= (122 - (key-1)) && ch <= 122)) {
+                    s += (char)(ch - (26 - key));
+                }
+                else {
+                    s += (char)(ch + key);
+                }
+            }
+            else {
+                s += ch;
+            }
+        }
+        return s;
     }
 
     public static String decryptCaesarKey(String message, int key) {
-        return message;
-        // REPLACE THIS WITH YOUR CODE
+        String s = "";
+        key = key % 26;
+        for(int i = 0; i < message.length(); i++) {
+            char ch = message.charAt(i);
+            if ((ch >= 65 && ch<= 90)||(ch >= 97 && ch <=122))  { 
+                if ((ch >= 65 && ch <= (65 + (key-1)))||(ch >= 97 && ch <= (97 + (key-1)))){
+                    s += (char)(ch + (26 - key));
+                }
+                else {
+                    s += (char)(ch - key);
+                }
+            }
+            else {
+                s += ch;
+            }
+        }
+        return s;
     }
 
 
